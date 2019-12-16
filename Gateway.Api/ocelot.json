@@ -1,0 +1,263 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/health",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/login",
+      "UpstreamHttpMethod": [ "OPTIONS", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/seed",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/seed",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/user/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/user/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/users",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/usersWithIds",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/usersWithIds",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/seed",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/seed",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicleCategory/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicleCategory/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicleByRegisteredUserId/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicleByRegisteredUserId/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicle",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "registration.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicle",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/seed",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/seed",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking",
+      "UpstreamHttpMethod": [ "Options", "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/openBookingsForEmployee",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/openBookingsForEmployee",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/acceptUserBooking/{bookingId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/acceptUserBooking/{bookingId}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/assignedToEmployee",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/assignedToEmployee",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/completeRide/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking.tmsservice.tk",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/completeRide/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 80,
+      "ConfigurationKey": "TMSGatewayConfig"
+    }
+  }
+}

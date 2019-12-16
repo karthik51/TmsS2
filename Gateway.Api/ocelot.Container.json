@@ -1,0 +1,264 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/health",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/health",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/login",
+      "UpstreamHttpMethod": [ "OPTIONS", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/seed",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/seed",
+      "UpstreamHttpMethod": [ "Options", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/user/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/user/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/users",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/account/usersWithIds",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/usersWithIds",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/seed",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/seed",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicleCategory/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicleCategory/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicleByRegisteredUserId/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicleByRegisteredUserId/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/registration/vehicle",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "vehicle",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/registration/vehicle",
+      "UpstreamHttpMethod": [ "Options", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/seed",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/seed",
+      "UpstreamHttpMethod": [ "OPTIONS", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking",
+      "UpstreamHttpMethod": [ "Options", "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/openBookingsForEmployee",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/openBookingsForEmployee",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/acceptUserBooking/{bookingId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/acceptUserBooking/{bookingId}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/assignedToEmployee",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/assignedToEmployee",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/booking/completeRide/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "booking",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/booking/completeRide/{id}",
+      "UpstreamHttpMethod": [ "Options", "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    },
+    "BaseUrl": "http://localhost"
+  }
+}
