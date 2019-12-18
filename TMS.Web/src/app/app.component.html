@@ -1,0 +1,9 @@
+<ng-progress [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'">
+</ng-progress>
+
+<div *ngIf="!authService.loggedIn()">
+  <app-login></app-login>
+</div>
+<div *ngIf="authService.loggedIn()">
+  <app-nav></app-nav>
+</div>

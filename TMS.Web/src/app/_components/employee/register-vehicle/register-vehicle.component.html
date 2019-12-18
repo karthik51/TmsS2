@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-12 align-self-center">
+    <h4 class="page-title"><b>Register your Vehicle</b></h4>
+    <hr>
+  </div>
+  <br><br>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="row">
+        <div class="col-9">
+          <div class="card">
+            <form class="form-horizontal mt-2" #registerVehicleForm="ngForm" (ngSubmit)="registerVehicle()">
+              <div class="card-body">
+                <div class="form-group row">
+                  <label for="vehicleModel" class="col-sm-3 text-right control-label col-form-label">Vehicle
+                    Model</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control text-uppercase" id="vehicleModel" name="vehicleModel"
+                      [(ngModel)]="vehicleRegistration.vehicleModel" #refVehicleModel="ngModel"
+                      [class.is-invalid]="refVehicleModel.touched && refVehicleModel.invalid" autocomplete="off"
+                      maxlength="100" required>
+                    <div class="invalid-feedback" *ngIf="refVehicleModel.touched && refVehicleModel.errors?.required">
+                      Vehicle Model is required</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="vehicleNumber" class="col-sm-3 text-right control-label col-form-label">Vehicle
+                    Number</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control text-uppercase" name="vehicleNumber"
+                      [(ngModel)]="vehicleRegistration.vehicleNumber" #refVehicleNumber="ngModel"
+                      [class.is-invalid]="refVehicleNumber.touched && refVehicleNumber.invalid" autocomplete="off"
+                      maxlength="100" required>
+                    <div class="invalid-feedback" *ngIf="refVehicleNumber.touched && refVehicleNumber.errors?.required">
+                      Vehicle Number is required</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="com12" class="col-sm-3 text-right control-label col-form-label">Vehicle Category</label>
+                  <div class="col-sm-9">
+                    <select type="text" class="form-control" name="vehicleCategoryId" #refVehicleCategory="ngModel"
+                      [(ngModel)]="vehicleRegistration.vehicleCategoryId"
+                      [class.is-invalid]="refVehicleCategory.touched && refVehicleCategory.invalid"
+                      (change)="onCategoryTypeChange(+vehicleRegistration.vehicleCategoryId)" required>
+                      <option [ngValue]="null">select</option>
+                      <option *ngFor="let category of vehicleCategories" [value]="category.vehicleCategoryId">
+                        {{category.vehicleCategoryType}}</option>
+                    </select>
+                    <div class="invalid-feedback"
+                      *ngIf="refVehicleCategory.touched && refVehicleCategory.errors?.required">
+                      Vehicle Category is required</div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="card-body">
+                <div class="form-group m-b-0 text-right">
+                  <button type="submit" class="btn btn-info waves-effect waves-light mr-1"
+                    [disabled]="registerVehicleForm.invalid">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div>
+          <img src="assets/images/vehicles/{{vehicleImage}}" [alt]="vehicleImage" *ngIf="vehicleImage">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
