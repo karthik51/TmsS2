@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System;
 
 namespace Trip
 {
@@ -45,12 +46,12 @@ namespace Trip
            // services.AddMvc();
 
             services.Configure<Settings>(
-                options =>
-                {
-                    options.ConnectionString =
-                        Configuration.GetSection("MongoDb:ConnectionString").Value;
-                    options.Database = Configuration.GetSection("MongoDb:Database").Value;
-                });
+            options =>
+            {
+                options.ConnectionString =
+                    Configuration.GetSection("MongoDb:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoDb:Database").Value;
+            });
 
             services.AddSingleton<IMongoClient, MongoClient>(
                 _ => new MongoClient(Configuration.GetSection("MongoDb:ConnectionString").Value));
@@ -75,10 +76,10 @@ namespace Trip
             });
             services.AddMvc(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
+                //var policy = new AuthorizationPolicyBuilder()
+                //    .RequireAuthenticatedUser()
+                //    .Build();
+                //options.Filters.Add(new AuthorizeFilter(policy));
                 options.Filters.Add(typeof(HttpGlobalExceptionFilter));
             })
            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -86,35 +87,85 @@ namespace Trip
            {
                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
            });
-            services.AddAuthentication(options =>
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            // .AddJwtBearer(options =>
+            // {
+            //     options.SaveToken = true;
+            //     options.TokenValidationParameters = new TokenValidationParameters
+            //     {
+            //         ValidateIssuerSigningKey = true,
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+            //         ValidateIssuer = false,
+            //         ValidateAudience = true,
+            //         ValidIssuer = Configuration["JwtIssuer"],
+            //         ValidAudience = Configuration["JwtIssuer"]
+            //     };
+            // });
+
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(Constants.RoleNames.ADMIN, policy => policy.RequireRole(Constants.RoleNames.ADMIN));
+            //    options.AddPolicy(Constants.RoleNames.EMPLOYEE, policy => policy.RequireRole(Constants.RoleNames.EMPLOYEE));
+            //    options.AddPolicy(Constants.RoleNames.CUSTOMER, policy => policy.RequireRole(Constants.RoleNames.CUSTOMER));
+            //});
+
+            //var audienceConfig = Configuration.GetSection("Audience");
+
+            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
+            //var tokenValidationParameters = new TokenValidationParameters
+            //{
+            //    ValidateIssuerSigningKey = true,
+            //    IssuerSigningKey = signingKey,
+            //    ValidateIssuer = true,
+            //    ValidIssuer = audienceConfig["Iss"],
+            //    ValidateAudience = true,
+            //    ValidAudience = audienceConfig["Aud"],
+            //    ValidateLifetime = true,
+            //    ClockSkew = TimeSpan.Zero,
+            //    RequireExpirationTime = true,
+            //};
+
+            //services.AddAuthentication(o =>
+            //{
+            //    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(x =>
+            //{
+            //    x.RequireHttpsMetadata = false;
+            //    x.TokenValidationParameters = tokenValidationParameters;
+            //});
+            // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-             .AddJwtBearer(options =>
-             {
-                 options.SaveToken = true;
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                     ValidateIssuer = false,
-                     ValidateAudience = true,
-                     ValidIssuer = Configuration["JwtIssuer"],
-                     ValidAudience = Configuration["JwtIssuer"]
-                 };
-             });
-
-
-            services.AddAuthorization(options =>
+            .AddJwtBearer(x =>
             {
-                options.AddPolicy(Constants.RoleNames.ADMIN, policy => policy.RequireRole(Constants.RoleNames.ADMIN));
-                options.AddPolicy(Constants.RoleNames.EMPLOYEE, policy => policy.RequireRole(Constants.RoleNames.EMPLOYEE));
-                options.AddPolicy(Constants.RoleNames.CUSTOMER, policy => policy.RequireRole(Constants.RoleNames.CUSTOMER));
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
-
 
         }
 
@@ -127,6 +178,7 @@ namespace Trip
             }
             app.UseCors("CorsPolicy");
             app.UseMvc();
+            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

@@ -33,20 +33,20 @@ namespace Auth.Api.Controllers
         }
 
         // GET api/user/userdata
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet]
-        public async Task<ActionResult> UserData()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var userData = new UserDataResponse
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                RoleId = user.RoleId,
-                Email = user.Email
-            };
-            return Ok(userData);
-        }
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[HttpGet]
+        //public async Task<ActionResult> UserData()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    var userData = new UserDataResponse
+        //    {
+        //        FirstName = user.FirstName,
+        //        LastName = user.LastName,
+        //        RoleId = user.RoleId,
+        //        Email = user.Email
+        //    };
+        //    return Ok(userData);
+        //}
 
         // POST api/user/register
         [HttpPost]

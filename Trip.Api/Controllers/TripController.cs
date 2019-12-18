@@ -19,8 +19,7 @@ namespace Trip.Api.Controllers
 
         // GET: api/Trip
         [HttpGet]
-        [Authorize(Constants.RoleNames.ADMIN)]
-        [Authorize]
+        //[Authorize(Roles = Constants.RoleNames.ADMIN)]
         public async Task<IActionResult> Get()
         {
             return new ObjectResult(await _tripRepository.GetAllTrips());
@@ -28,7 +27,7 @@ namespace Trip.Api.Controllers
 
         // GET: api/Trip/username
         [HttpGet("TripsForEmployee")]
-        [Authorize(Constants.RoleNames.EMPLOYEE)]
+       // [Authorize(Roles = Constants.RoleNames.EMPLOYEE)]
         public async Task<IActionResult> GetTripsForEmployee(string username)
         {
             var trip = await _tripRepository.GetTripDriver(username);
@@ -41,7 +40,7 @@ namespace Trip.Api.Controllers
 
         // GET: api/Trip/name
         [HttpGet("TripsByCustomer")]
-        [Authorize(Constants.RoleNames.CUSTOMER)]
+       // [Authorize(Roles = Constants.RoleNames.CUSTOMER)]
         public async Task<IActionResult> GetTripsByCustomer(string name)
         {
             var trip = await _tripRepository.GetTripCustomer(name);
