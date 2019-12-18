@@ -5,7 +5,6 @@ namespace Trip.Api.Data
 {
     public interface ITripContext
     {
-        IMongoCollection<Game> Games { get; }
         IMongoCollection<Ride> Rides { get; }
     }
 }

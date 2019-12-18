@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Trip.Api.Models;
+using Trip.Api.Helpers;
 using Trip.Api.Repository;
 
 namespace Trip.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Trip")]
+    [Route("api/v1/Trip")]
     public class TripController : Controller
     {
         private readonly ITripRepository _tripRepository;
@@ -18,16 +19,19 @@ namespace Trip.Api.Controllers
 
         // GET: api/Trip
         [HttpGet]
+        [Authorize(Constants.RoleNames.ADMIN)]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             return new ObjectResult(await _tripRepository.GetAllTrips());
         }
 
-        // GET: api/Trip/id
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<IActionResult> Get(string id)
+        // GET: api/Trip/username
+        [HttpGet("TripsForEmployee")]
+        [Authorize(Constants.RoleNames.EMPLOYEE)]
+        public async Task<IActionResult> GetTripsForEmployee(string username)
         {
-            var trip = await _tripRepository.GetTrip(id);
+            var trip = await _tripRepository.GetTripDriver(username);
 
             if (trip == null)
                 return new NotFoundResult();
@@ -35,42 +39,17 @@ namespace Trip.Api.Controllers
             return new ObjectResult(trip);
         }
 
-        // POST: api/Trip
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Ride ride)
+        // GET: api/Trip/name
+        [HttpGet("TripsByCustomer")]
+        [Authorize(Constants.RoleNames.CUSTOMER)]
+        public async Task<IActionResult> GetTripsByCustomer(string name)
         {
-            await _tripRepository.Create(ride);
-            return new OkObjectResult(ride);
-        }
+            var trip = await _tripRepository.GetTripCustomer(name);
 
-        // PUT: api/Trip/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, [FromBody]Ride ride)
-        {
-            var tripFromDb = await _tripRepository.GetTrip(id);
-
-            if (tripFromDb == null)
+            if (trip == null)
                 return new NotFoundResult();
 
-            ride.Id = tripFromDb.Id;
-
-            await _tripRepository.Update(ride);
-
-            return new OkObjectResult(ride);
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var tripFromDb = await _tripRepository.GetTrip(id);
-
-            if (tripFromDb == null)
-                return new NotFoundResult();
-
-            await _tripRepository.Delete(id);
-
-            return new OkResult();
-        }
+            return new ObjectResult(trip);
+        }       
     }
 }

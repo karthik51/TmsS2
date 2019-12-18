@@ -24,44 +24,24 @@ namespace Trip.Api.Repository
                             .ToListAsync();
         }
 
-        public Task<Ride> GetTrip(string id)
+        public Task<List<Ride>> GetTripCustomer(string username)
         {
-            FilterDefinition<Ride> filter = Builders<Ride>.Filter.Eq(m => m.Id, id);
+            FilterDefinition<Ride> filter = Builders<Ride>.Filter.Eq(m => m.RideByUser, username);
 
             return _context
                     .Rides
                     .Find(filter)
-                    .FirstOrDefaultAsync();
+                    .ToListAsync();
         }
 
-        public async Task Create(Ride ride)
+        public Task<List<Ride>> GetTripDriver(string username)
         {
-            await _context.Rides.InsertOneAsync(ride);
-        }
+            FilterDefinition<Ride> filter = Builders<Ride>.Filter.Eq(m => m.RideAcceptedByUser, username);
 
-        public async Task<bool> Update(Ride ride)
-        {
-            ReplaceOneResult updateResult =
-                await _context
-                        .Rides
-                        .ReplaceOneAsync(
-                            filter: g => g.Id == ride.Id,
-                            replacement: ride);
-
-            return updateResult.IsAcknowledged
-                    && updateResult.ModifiedCount > 0;
-        }
-
-        public async Task<bool> Delete(string id)
-        {
-            FilterDefinition<Ride> filter = Builders<Ride>.Filter.Eq(m => m.Id, id);
-
-            DeleteResult deleteResult = await _context
-                                                .Rides
-                                                .DeleteOneAsync(filter);
-
-            return deleteResult.IsAcknowledged
-                && deleteResult.DeletedCount > 0;
+            return _context
+                    .Rides
+                    .Find(filter)
+                    .ToListAsync();
         }
     }
 }

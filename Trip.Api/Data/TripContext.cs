@@ -14,6 +14,5 @@ namespace Trip.Api.Data
         }
 
         public IMongoCollection<Ride> Rides => _db.GetCollection<Ride>("Rides");
-        public IMongoCollection<Game> Games => _db.GetCollection<Game>("Games");
-    }
+      }
 }
