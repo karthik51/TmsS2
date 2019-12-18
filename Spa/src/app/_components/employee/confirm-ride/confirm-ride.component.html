@@ -1,0 +1,58 @@
+<div>
+  <div class="row">
+    <div class="col-12 align-self-center">
+      <h4 class="page-title"><b>Confirm a Ride</b></h4>
+      <hr>
+    </div>
+    <br><br>
+  </div>
+  <div *ngIf="!openBookings">
+    <h4>Please register your vehicle</h4>
+  </div>
+
+  <div *ngIf="openBookings && openBookings.length == 0">
+      <h4>You have no active rides</h4>
+  </div>
+
+  <div *ngIf="openBookings && openBookings.length > 0">
+    <div *ngFor="let bookingDetail of openBookings">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                  <h5 class="m-t-0"><img src="assets/images/vehicles/{{bookingDetail.vehicleImage}}"
+                      [alt]="bookingDetail.vehicleImage" style="width:200px;height:200px;">
+                  </h5>
+                </div>
+                <div class="col-lg-offset-6  col-md-offset-6 col-sm-offset-6 mt-5">
+                  <span class="pull-right"><span class="small">Booking
+                      Date:</span>{{bookingDetail.bookingDate | date:'medium'}}</span>
+                  <br>
+                  <span class="pull-right"><span class="small mr-2">Ride
+                      Category:</span>{{bookingDetail.vehicleCategoryType}}</span>
+                  <br>
+                  <span class="pull-right"><span class="small mr-2">From
+                      Location:</span>{{bookingDetail.fromLocation | uppercase}}</span>
+                  <br>
+                  <span class="pull-right"><span class="small mr-2">To
+                      Location:</span>{{bookingDetail.toLocation | uppercase}}</span>
+                  <br>
+                  <span class="pull-left"><span class="small mr-2">Booked
+                      By:</span>{{bookingDetail.bookedByUser}}</span>
+                  <br>
+                </div>
+              </div>
+              <hr>
+              <div class="form-group m-b-0 text-right">
+                <button type="button" class="btn btn-success waves-effect waves-light mr-1"
+                  (click)="acceptBooking(bookingDetail.bookingDetailsId)">Accept</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

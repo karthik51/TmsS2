@@ -1,15 +1,17 @@
 ﻿using System;
 using AspNetCore.Identity.Mongo;
 
-namespace MyAwesomeWebApi.Models.Identity
+namespace Auth.Api.Models.Identity
 {
     //Add any custom field for a user
     public class ApplicationUser : MongoIdentityUser
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public string LastName { get; set; }               
 
-        public string City { get; set; }
+        public string RoleId { get; set; }
+
+        
     }
 }

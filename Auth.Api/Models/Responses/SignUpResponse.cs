@@ -1,5 +1,5 @@
 ﻿using System;
-namespace MyAwesomeWebApi.Models.Responses
+namespace Auth.Api.Models.Responses
 {
     public class SignUpResponse
     {

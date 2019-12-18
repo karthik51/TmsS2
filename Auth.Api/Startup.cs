@@ -15,10 +15,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MyAwesomeWebApi.Models.Identity;
+using Auth.Api.Models.Identity;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace MyAwesomeWebApi
+namespace Auth.Api
 {
     public class Startup
     {
