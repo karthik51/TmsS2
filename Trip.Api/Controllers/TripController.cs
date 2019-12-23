@@ -53,7 +53,8 @@ namespace Trip.Api.Controllers
         }
 
         // POST: api/v1/Trips
-        [HttpPost]
+        [HttpPost("CreateRide")]
+        [Authorize(Roles = RoleNames.CUSTOMER)]
         public async Task<IActionResult> Post([FromBody] Ride ride)
         {
             await _tripRepository.Create(ride);

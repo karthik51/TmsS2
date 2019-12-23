@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
-using Ocelot.Provider.Polly;
 using System;
 using System.IO;
 
@@ -17,10 +15,7 @@ namespace TMS.Gateway
 
         public static void Main(string[] args)
         {
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            isProductionEnvironment = environment == EnvironmentName.Production;
-
-            CreateWebHostBuilder(args)
+            new WebHostBuilder()
                .UseKestrel()
                .UseContentRoot(Directory.GetCurrentDirectory())
                .ConfigureAppConfiguration((hostingContext, config) =>
@@ -29,20 +24,11 @@ namespace TMS.Gateway
                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                        .AddJsonFile("appsettings.json", true, true)
                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                       .AddJsonFile("ocelot.json", true, true)
-                       .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                       .AddJsonFile("ocelot.json")
                        .AddEnvironmentVariables();
                })
-               .ConfigureServices(s =>
-               {
-                   if (isProductionEnvironment)
-                   {
-                       s.AddOcelot().AddPolly().AddConsul().AddConfigStoredInConsul();
-                   }
-                   else
-                   {
-                       s.AddOcelot().AddPolly().AddConsul();
-                   }
+               .ConfigureServices(s => {
+                   s.AddOcelot();
                })
                .ConfigureLogging((hostingContext, logging) =>
                {
@@ -55,10 +41,6 @@ namespace TMS.Gateway
                })
                .Build()
                .Run();
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        }      
     }
 }

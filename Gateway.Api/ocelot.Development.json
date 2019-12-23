@@ -2,23 +2,78 @@
   "ReRoutes": [
     {
       "UseServiceDiscovery": true,
-      "DownstreamPathTemplate": "/{url}",
+      "DownstreamPathTemplate": "/api/v1/users/login",
       "DownstreamScheme": "http",
-      "ServiceName": "auth.api",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "UpstreamPathTemplate": "/{url}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "ServiceName": "auth" //,
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 1000,
+      //  "TimeoutValue": 5000
+      //}
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/users/getusers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/getusers",
       "UpstreamHttpMethod": [ "Get" ],
-      "ReRoutesCaseSensitive": false
+      "ServiceName": "auth"
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 1000,
+      //  "TimeoutValue": 5000
+      //}
     }
+    //{
+    //  "UseServiceDiscovery": true,
+    //  "DownstreamPathTemplate": "/api/v1/users/createuser",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5001
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/api/users/createuser",
+    //  "UpstreamHttpMethod": [ "Post" ],
+    //  "ServiceName": "auth",
+    //  "LoadBalancerOptions": {
+    //    "Type": "LeastConnection"
+    //  },
+    //  "QoSOptions": {
+    //    "ExceptionsAllowedBeforeBreaking": 3,
+    //    "DurationOfBreak": 1000,
+    //    "TimeoutValue": 5000
+    //  }
+    //}
+
   ],
   "GlobalConfiguration": {
-    "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 8500,
-      "Type": "PollConsul",
-      "PollingInterval": 100
-    }
+    "BaseUrl": "http://localhost:5000"
+    //"ServiceDiscoveryProvider": {
+    //  "Host": "localhost",
+    //  "Port": 8500,
+    //  "Type": "Consul"
+    //}
   }
 }
