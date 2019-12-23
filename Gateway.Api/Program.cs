@@ -10,9 +10,6 @@ namespace TMS.Gateway
 {
     public class Program
     {
-        static string environment;
-        static bool isProductionEnvironment;
-
         public static void Main(string[] args)
         {
             new WebHostBuilder()
