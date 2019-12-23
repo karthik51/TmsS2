@@ -21,7 +21,7 @@ namespace TMS.Gateway
             isProductionEnvironment = environment == EnvironmentName.Production;
 
             CreateWebHostBuilder(args)
-                .UseKestrel()
+               .UseKestrel()
                .UseContentRoot(Directory.GetCurrentDirectory())
                .ConfigureAppConfiguration((hostingContext, config) =>
                {

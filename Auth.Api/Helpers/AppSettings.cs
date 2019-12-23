@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Trip.Api.Helpers
 {
-    public class JsonErrorResponse
+    public class AppSettings
     {
-        public string[] Messages { get; set; }
-
-        public object DeveloperMessage { get; set; }
+        public string Secret { get; set; }
     }
 }

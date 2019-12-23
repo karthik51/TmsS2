@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using Trip.Api.Helpers;
 using Trip.Api.Models;
 
 namespace Trip.Api.Data

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Trip.Api.Helpers;
 using Trip.Api.Models;
 
 namespace Trip.Api.Data
@@ -8,7 +9,7 @@ namespace Trip.Api.Data
     {
         private readonly IMongoDatabase _db;
 
-        public TripContext(IOptions<Settings> options, IMongoClient client)
+        public TripContext(IOptions<MongoSettings> options, IMongoClient client)
         {
             _db = client.GetDatabase(options.Value.Database);
         }

@@ -8,10 +8,17 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace TMS.Gateway
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -27,68 +34,38 @@ namespace TMS.Gateway
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder
-                    .SetIsOriginAllowed((host) => true)
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials());
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                    ValidateIssuer = false,
-                    ValidateAudience = true,
-                    ValidIssuer = Configuration["JwtIssuer"],
-                    ValidAudience = Configuration["JwtIssuer"]
-                };
-            });
+            services.AddOcelot()
+                    .AddPolly()
+                    .AddConsul();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Constants.RoleNames.ADMIN, policy => policy.RequireRole(Constants.RoleNames.ADMIN));
-                options.AddPolicy(Constants.RoleNames.EMPLOYEE, policy => policy.RequireRole(Constants.RoleNames.EMPLOYEE));
-                options.AddPolicy(Constants.RoleNames.CUSTOMER, policy => policy.RequireRole(Constants.RoleNames.CUSTOMER));
-            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddMvc(options =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddJsonOptions(opt =>
-            {
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
-
-            services.AddHealthChecks();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
+            }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
-            app.UseAuthentication();
             app.UseMvc();
-            app.UseHealthChecks("/health");
+            await app.UseOcelot();
+
         }
     }
 }

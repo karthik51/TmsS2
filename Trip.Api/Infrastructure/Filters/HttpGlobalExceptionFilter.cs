@@ -9,7 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Trip.Api.Infrastructure.ActionResults;
 using Trip.Api.Infrastructure.Exceptions;
-using Trip.Api.Models;
+using Trip.Api.Helpers;
 
 namespace Trip.Api.Infrastructure.Filters
 {

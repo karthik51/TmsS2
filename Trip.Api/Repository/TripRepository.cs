@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Trip.Api.Data;
+using Trip.Api.Helpers;
 using Trip.Api.Models;
 
 namespace Trip.Api.Repository
@@ -42,6 +43,11 @@ namespace Trip.Api.Repository
                     .Rides
                     .Find(filter)
                     .ToListAsync();
+        }
+
+        public async Task Create(Ride ride)
+        {
+            await _context.Rides.InsertOneAsync(ride);
         }
     }
 }
