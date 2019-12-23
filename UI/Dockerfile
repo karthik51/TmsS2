@@ -1,15 +1,15 @@
 ### STAGE 1: Build ###
 FROM node:10-alpine as builder
 
-COPY TMS.SPA/package.json TMS.SPA/package-lock.json ./
+COPY UI/package.json UI/package-lock.json ./
 RUN npm install && mkdir /ng-app && mv ./node_modules ./ng-app
 WORKDIR /ng-app
-COPY ./TMS.SPA .
+COPY ./UI .
 RUN npm run ng build -- --prod --output-path=dist
 
 ### STAGE 2: Setup ###
 FROM nginx:1.14.1-alpine
-COPY ./TMS.SPA/nginx/default.conf /etc/nginx/conf.d/
+COPY ./UI/nginx/default.conf /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /ng-app/dist /usr/share/nginx/html
 CMD ["nginx", "-g", "daemon off;"]

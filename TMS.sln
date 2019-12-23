@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trip.Api", "Trip.Api\Trip.Api.csproj", "{F29CEE0E-00B4-439B-AE2E-13B33A895FA7}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api.Tests", "Auth.Api.Tests\Auth.Api.Tests.csproj", "{68708A21-D561-4890-8CE7-29B11BF0BF49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trip.Api.Tests", "Trip.Api.Tests\Trip.Api.Tests.csproj", "{29C393C0-03B8-4EB5-9F80-6FC45CEC6183}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0B216214-5A73-4D83-9DDE-B42B0A10ED8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{29C393C0-03B8-4EB5-9F80-6FC45CEC6183}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29C393C0-03B8-4EB5-9F80-6FC45CEC6183}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29C393C0-03B8-4EB5-9F80-6FC45CEC6183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B216214-5A73-4D83-9DDE-B42B0A10ED8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B216214-5A73-4D83-9DDE-B42B0A10ED8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B216214-5A73-4D83-9DDE-B42B0A10ED8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B216214-5A73-4D83-9DDE-B42B0A10ED8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

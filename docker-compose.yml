@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  gateway.api:
+    image: tms-gatewayapi
+    container_name: tms.gatewayapi
+    build:
+      context: .
+      dockerfile: Gateway.Api/Dockerfile
+
+  auth.api:
+    image: tms-authapi
+    container_name: tms.authapi
+    build:
+      context: .
+      dockerfile: Auth.Api/Dockerfile   
+
+  trip.api:
+    image: tms-tripapi
+    container_name: tms.tripapi
+    build:
+      context: .
+      dockerfile: Trip.Api/Dockerfile    
+
+  ui:
+    image: tms-ui
+    container_name: tms.ui
+    build:
+      context: .
+      dockerfile: UI/Dockerfile
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081   
+    depends_on:
+      - mongo
+
+  consul:
+    image: consul:latest
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+    hostname: consul
+    container_name: consul
+
