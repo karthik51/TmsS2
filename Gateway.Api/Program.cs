@@ -6,8 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
 using System;
 using System.IO;
+using System.Net.Http;
 
 namespace TMS.Gateway
 {
@@ -28,7 +30,7 @@ namespace TMS.Gateway
                        .AddEnvironmentVariables();
                })
                .ConfigureServices(s => {
-                   s.AddOcelot().AddConsul(); 
+                   s.AddOcelot().AddConsul().AddPolly();  
                    s.AddCors(options =>
                    {
                        options.AddPolicy("CorsPolicy",
@@ -52,6 +54,6 @@ namespace TMS.Gateway
                })
                .Build()
                .Run();
-        }      
+        }       
     }
 }
