@@ -88,6 +88,7 @@ namespace Trip.Api
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger();
+            app.UseCors("CorsPolicy");
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth Api v1");

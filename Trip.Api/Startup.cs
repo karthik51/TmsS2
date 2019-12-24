@@ -119,6 +119,7 @@ namespace Trip.Api
             }
             app.UseAuthentication();
             app.UseSwagger();
+            app.UseCors("CorsPolicy");
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trip Api v1");

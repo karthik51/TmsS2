@@ -56,10 +56,25 @@
         {
           "Host": "localhost",
           "Port": 5002
+        },
+        {
+          "Host": "localhost",
+          "Port": 6002
         }
       ],
       "UpstreamPathTemplate": "/api/trips/GetAllTrips",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "trip",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
     },
     {
       "UseServiceDiscovery": true,
@@ -103,11 +118,11 @@
 
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "localhost",
-    //  "Port": 8500,
-    //  "Type": "Consul"
-    //}
+    "BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
   }
 }
