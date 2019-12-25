@@ -13,9 +13,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using Polly;
 using Swashbuckle.AspNetCore.Swagger;
 using Trip.Api.Data;
 using Trip.Api.Helpers;
+using Trip.Api.Infrastructure.Handlers;
+using Trip.Api.Infrastructure.ServiceDiscovery;
 using Trip.Api.Repository;
 
 namespace Trip.Api
@@ -28,11 +31,14 @@ namespace Trip.Api
         }
 
         public IConfiguration Configuration { get; }
+        private string gatewayBaseURL = string.Empty;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Mvc
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            #endregion
 
             #region "Cors"
             services.AddCors(options =>
@@ -106,8 +112,28 @@ namespace Trip.Api
 
             #endregion
 
+            #region Service Discovery
+            ConfigureConsul(services);
+            #endregion
+
+            #region CircuitBreaker
+            gatewayBaseURL = Configuration["GatewayBaseURL"];
+
+            services.AddHttpClient("gateway", c =>
+            {
+                c.BaseAddress = new Uri(gatewayBaseURL);
+            })
+           .AddHttpMessageHandler<AccessTokenHttpMessageHandler>()
+           .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.CircuitBreakerAsync(
+               handledEventsAllowedBeforeBreaking: 2,
+               durationOfBreak: TimeSpan.FromMinutes(1)
+           ));
+            #endregion
+
+            #region DI
             services.AddTransient<ITripContext, TripContext>();
             services.AddTransient<ITripRepository, TripRepository>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,6 +152,12 @@ namespace Trip.Api
             });
             app.UseMvc();
 
+        }
+        private void ConfigureConsul(IServiceCollection services)
+        {
+            var serviceConfig = Configuration.GetServiceConfig();
+
+            services.RegisterConsulServices(serviceConfig);
         }
     }
 }

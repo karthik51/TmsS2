@@ -1,5 +1,5 @@
 #region snippet_UsingUsersApiModels
-using Trip.Api.Helpers;
+using Trip.Api.Infrastructure.Helpers;
 using Trip.Api.Models;
 #endregion
 #region using
@@ -12,6 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
+using Auth.Api.Infrastructure.ServiceDiscovery;
+using Polly;
+using System.Net.Http;
+using System;
+using Polly.Extensions.Http;
+using Auth.Api.Infrastructure.Handlers;
 #endregion
 
 namespace Trip.Api
@@ -24,8 +30,9 @@ namespace Trip.Api
         }
 
         public IConfiguration Configuration { get; }
+        private string gatewayBaseURL = string.Empty;
 
-        #region snippet_ConfigureServices
+        #region ConfigureServices
         public void ConfigureServices(IServiceCollection services)
         {
             #region "Cors"
@@ -39,7 +46,8 @@ namespace Trip.Api
                     .AllowCredentials());
             });
             #endregion
-            
+
+            #region MongoSetting
             services.Configure<UserstoreDatabaseSettings>(
                 Configuration.GetSection(nameof(UserstoreDatabaseSettings)));
 
@@ -47,15 +55,39 @@ namespace Trip.Api
                 sp.GetRequiredService<IOptions<UserstoreDatabaseSettings>>().Value);
 
             services.AddSingleton<UserService>();
+            #endregion
 
+            #region Service Discovery
+            ConfigureConsul(services);
+            #endregion
+
+            #region CircuitBreaker
+            gatewayBaseURL = Configuration["GatewayBaseURL"];
+
+            services.AddHttpClient("gateway", c =>
+            {
+                c.BaseAddress = new Uri(gatewayBaseURL);
+            })
+           .AddHttpMessageHandler<AccessTokenHttpMessageHandler>()
+           .AddTransientHttpErrorPolicy(policyBuilder => policyBuilder.CircuitBreakerAsync(
+               handledEventsAllowedBeforeBreaking: 2,
+               durationOfBreak: TimeSpan.FromMinutes(1)
+           ));
+            #endregion
+
+            #region AppSetting
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            #endregion
 
+            #region Mvc
             services.AddMvc()
                     .AddJsonOptions(options => options.UseMemberCasing())
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            #endregion
 
+            #region Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Auth API v1", Version = "v1" });
@@ -71,6 +103,7 @@ namespace Trip.Api
                     { "Bearer", new string[] { } }
                 });
             });
+            #endregion
         }
         #endregion
 
@@ -95,5 +128,12 @@ namespace Trip.Api
             });
             app.UseMvc();
         }
+
+        private void ConfigureConsul(IServiceCollection services)
+        {
+            var serviceConfig = Configuration.GetServiceConfig();
+
+            services.RegisterConsulServices(serviceConfig);
+        }        
     }
 }

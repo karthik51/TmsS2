@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Trip.Api.Helpers
+namespace Trip.Api.Infrastructure.Helpers
 {
     public class AppSettings
     {

@@ -1,5 +1,5 @@
 ﻿#region snippet_UserServiceClass
-using Trip.Api.Helpers;
+using Trip.Api.Infrastructure.Helpers;
 using Trip.Api.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
