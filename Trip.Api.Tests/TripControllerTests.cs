@@ -12,11 +12,11 @@ using System.Security.Claims;
 
 namespace Trip.Api.Tests
 {
-    public class UserControllerTests : IClassFixture<TestFixture<Startup>>
+    public class TripControllerTests : IClassFixture<TestFixture<Startup>>
     {       
         private readonly HttpClient _httpClient;
 
-        public UserControllerTests(TestFixture<Startup> fixture)
+        public TripControllerTests(TestFixture<Startup> fixture)
         {
             _httpClient = fixture.Client;
         }
@@ -39,7 +39,7 @@ namespace Trip.Api.Tests
                 'vehicleNumber': 'Tn14 AD 4444'
               }";
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var request = "/api/v1/trips";
+            var request = "/api/v1/trips/CreateRide";
 
             // Act
             var response = await _httpClient.PostAsync(request, httpContent);

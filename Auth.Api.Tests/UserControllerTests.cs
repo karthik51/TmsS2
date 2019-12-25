@@ -94,7 +94,7 @@ namespace Auth.Api.Tests
         {
             // Arrange
             List<User> userInfo = null;           
-            var request = "/api/v1/users";
+            var request = "/api/v1/users/getusers";
 
             // Act
             var response = await _httpClient.GetAsync(request);
