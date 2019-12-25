@@ -11,16 +11,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/users/login",
-      "UpstreamHttpMethod": [ "Post" ],
-      "ServiceName": "auth" //,
-      //"LoadBalancerOptions": {
-      //  "Type": "LeastConnection"
-      //},
-      //"QoSOptions": {
-      //  "ExceptionsAllowedBeforeBreaking": 3,
-      //  "DurationOfBreak": 1000,
-      //  "TimeoutValue": 5000
-      //}
+      "UpstreamHttpMethod": [ "Post" ]
     },
     {
       "UseServiceDiscovery": true,
@@ -33,8 +24,21 @@
         }
       ],
       "UpstreamPathTemplate": "/api/users/getusers",
-      "UpstreamHttpMethod": [ "Get" ],
-      "ServiceName": "auth"
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/users/createuser",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/createuser",
+      "UpstreamHttpMethod": [ "Post" ]
+      //"ServiceName": "auth",
       //"LoadBalancerOptions": {
       //  "Type": "LeastConnection"
       //},
@@ -43,37 +47,87 @@
       //  "DurationOfBreak": 1000,
       //  "TimeoutValue": 5000
       //}
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/trips/GetAllTrips",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        },
+        {
+          "Host": "localhost",
+          "Port": 6002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/trips/GetAllTrips",
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "trip",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 5000
+      }
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/trips/GetTripsForEmployee",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/trips/GetTripsForEmployee",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/trips/GetTripsByCustomer",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/trips/GetTripsByCustomer",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/v1/trips/CreateRide",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/trips/CreateRide",
+      "UpstreamHttpMethod": [ "Post" ]
     }
-    //{
-    //  "UseServiceDiscovery": true,
-    //  "DownstreamPathTemplate": "/api/v1/users/createuser",
-    //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5001
-    //    }
-    //  ],
-    //  "UpstreamPathTemplate": "/api/users/createuser",
-    //  "UpstreamHttpMethod": [ "Post" ],
-    //  "ServiceName": "auth",
-    //  "LoadBalancerOptions": {
-    //    "Type": "LeastConnection"
-    //  },
-    //  "QoSOptions": {
-    //    "ExceptionsAllowedBeforeBreaking": 3,
-    //    "DurationOfBreak": 1000,
-    //    "TimeoutValue": 5000
-    //  }
-    //}
 
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "localhost",
-    //  "Port": 8500,
-    //  "Type": "Consul"
-    //}
+    "BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
   }
 }

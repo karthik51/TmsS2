@@ -15,12 +15,13 @@ import { IUserInfoModel } from '../_models/user-info.model';
 export class AuthService {
     jwtHelper = new JwtHelperService();
     loggedInUserName: string;
-    accountApiUrl: string = environment.baseApiUrl + '/account';
+    accountApiUrl: string = environment.baseApiUrl ;
 
     constructor(private http: HttpClient, private router: Router) { }
 
     login(authRequest: any): Observable<any> {
-        return this.http.post(this.accountApiUrl + '/login', authRequest).pipe(
+        return this.http.post(this.accountApiUrl + '/login', authRequest);
+      /*  .pipe(
             map((response: any) => {
                 const user = response;
 
@@ -29,10 +30,9 @@ export class AuthService {
                     this.assignLoggedInUserName();
                 }
             })
-        );
+        );*/
     }
-
-    loggedIn() {
+        loggedIn() {
         const token = sessionStorage.getItem('token');
         return !this.jwtHelper.isTokenExpired(token);
     }

@@ -60,14 +60,16 @@ export class LoginComponent implements OnInit {
           this.alertify.error("Incorrect Username or Password!");
         }
       }, () => {
+        
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-
+               
         if (returnUrl) {
           returnUrl = returnUrl === ROUTE_PATH.LOGIN ? ROUTE_PATH.HOME : returnUrl;
         }
-
+    
         this.router.navigate(['/customer/book-a-ride']);
       });
+     
   }
 
   get UserRoute(): string {
