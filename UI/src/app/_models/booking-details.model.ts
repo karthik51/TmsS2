@@ -1,13 +1,14 @@
 export interface BookingDetailModel {
-    bookingDetailsId: number;
-    bookingDate: Date;
+    id: string;
+    rideDate: Date;
     fromLocation: string;
     toLocation: string;
-    bookedByUser: string;
+    rideByUser: string;
     vehicleCategoryType: string;
-    bookingAcceptedByUser: string;
-    isBookingCancelled: boolean;
+    rideAcceptedByUser: string;
+    isRideCancelled: boolean;
     isRideCompleted: boolean;
     vehicleImage: string;
     vehicleNumber: string;
 }
+

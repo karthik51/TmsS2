@@ -23,7 +23,7 @@ export class ViewPastRidesComponent implements OnInit, OnDestroy {
         pagingType: 'full_numbers',
         pageLength: 10
       };
-
+      console.log('onInitComp');
       this.bookingDetails = resolve.pastRides;
       setTimeout(() => {
         this.dtTrigger.next();

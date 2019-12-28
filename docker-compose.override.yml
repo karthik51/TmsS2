@@ -1,31 +1,31 @@
 version: '3.4'
 
 services:
-  gateway.api:
+  gateway:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Container
       - ASPNETCORE_URLS=http://+:5000
     ports:
       - "5000:5000"
 
-  auth.api:
+  auth:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Container
       - ASPNETCORE_URLS=http://+:5001
     ports:
       - "5001:5001"
 
-  trip.api:
+  trip:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Container
       - ASPNETCORE_URLS=http://+:5002
     ports:
       - "5002:5002"
-
+  
   ui:
     ports:
       - "8080:80"
-
+  
   consul:
     ports:
       - "8500:8500"

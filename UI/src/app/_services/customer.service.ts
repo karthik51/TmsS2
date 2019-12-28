@@ -8,7 +8,7 @@ import { BookingDetailModel } from '../_models/booking-details.model';
     providedIn: 'root'
 })
 export class CustomerService {
-    private bookingRoute: string = environment.baseApiUrl + '/booking';
+    private bookingRoute: string = environment.baseApiUrl + '/trips';
 
     constructor(private http: HttpClient) {
     }
@@ -17,11 +17,11 @@ export class CustomerService {
         return this.http.post<boolean>(this.bookingRoute, bookingRequest);
     }
 
-    cancelRide(bookingId: number): Observable<boolean> {
+    cancelRide(bookingId: string): Observable<boolean> {
         return this.http.delete<boolean>(this.bookingRoute + '/' + bookingId);
     }
 
-    viewPastRides(): Observable<BookingDetailModel> {
-        return this.http.get<BookingDetailModel>(this.bookingRoute + '/bookingsByUserId');
+    viewPastRides(name: string): Observable<BookingDetailModel> {
+        return this.http.get<BookingDetailModel>(this.bookingRoute + '/GetTripsByCustomer?name='+ name );
     }
 }

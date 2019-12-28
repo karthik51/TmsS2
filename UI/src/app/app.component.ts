@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.assignLoggedInUserName()
+    //this.authService.assignLoggedInUserName()
 
     this.routerSubscription = this.router.events.pipe(
       filter(event => event instanceof NavigationStart || event instanceof NavigationEnd)

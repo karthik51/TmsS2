@@ -13,8 +13,8 @@ export class RoleGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot): boolean {
 
         const navigationRoute: string = route.data.navigationRoute; // added in app-routing.module
-        if (this.authService.loggedIn() && this.authService.isAdminRole && navigationRoute === 'bulk-upload') {
-            this.router.navigate([ROUTE_PATH.ERROR, 401]);
+        if (this.authService.loggedIn() && this.authService.isAdminRole ) {
+           this.router.navigate([ROUTE_PATH.ERROR, 401]);
             return false;
         }
 

@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { BookingDetailModel } from 'src/app/_models/booking-details.model';
 import { ActivatedRoute } from '@angular/router';
+import { AdminService } from 'src/app/_services/admin.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-all-bookings',
@@ -15,20 +17,25 @@ export class ViewAllBookingsComponent implements OnInit, OnDestroy {
   bookingDetails: BookingDetailModel[];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private adminService: AdminService,
   ) { }
-
+ 
   ngOnInit() {
-    this.route.data.subscribe(resolve => {
-      this.bookingDetails = resolve.bookingDetails;
-    });
+    //this.http.subscribe(resolve => {
+     // this.bookingDetails = resolve.bookingDetails;    
+    //});
+
+    this.adminService.getAllBookings().subscribe((result : BookingDetailModel[])=>{
+      this.bookingDetails = result;
+  });
 
     setTimeout(() => {
-      this.dtTrigger.next();
+     // this.dtTrigger.next();
     });
   }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+   // this.dtTrigger.unsubscribe();
   }
 }

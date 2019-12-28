@@ -1,0 +1,200 @@
+<div>
+  <div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
+    <!-- Login Form -->
+    <div class="auth-box" *ngIf="!isRegistration">
+      <div id="loginform">
+        <div class="logo">
+          <span class="db"><img src="../../assets/images/car.jpg" alt="logo" /></span>
+          <h5 class="font-medium m-b-20">Sign In to Travel Management System</h5>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <form class="form-horizontal m-t-20" id="loginform" #loginForm="ngForm" (ngSubmit)="login(loginForm)"
+              novalidate>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Username" name="username"
+                  [(ngModel)]="username" autocomplete="off" required #refUsername="ngModel"
+                  [class.is-invalid]="refUsername.touched && refUsername.invalid">
+                <div *ngIf="refUsername.errors?.required" class="invalid-feedback">Username is required</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2"><i class="ti-lock"></i></span>
+                </div>
+                <input type="password" class="form-control form-control-lg" placeholder="Password" name="password"
+                  [(ngModel)]="password" autocomplete="off" required #refPassword="ngModel"
+                  [class.is-invalid]="refPassword.touched && refPassword.invalid">
+                <div *ngIf="refPassword.errors?.required" class="invalid-feedback">Password is required</div>
+              </div>
+              
+              <div class="form-group text-center">
+                <div class="col-xs-12 p-b-20">
+                  <button class="btn btn-block btn-lg btn-info" type="submit" [disabled]="loginForm.invalid">Log
+                    In</button>
+                </div>
+              </div>
+              <div class="form-group m-b-0 m-t-10">
+                <div class="col-sm-12 text-center">
+                  Don't have an account? <a href="javascript:void(0)" class="text-info m-l-5"
+                    (click)="isRegistration = !isRegistration"><b>Sign
+                      Up</b></a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Login Form -->
+
+    <!-- Registration Form -->
+    <div class="auth-box" *ngIf="isRegistration">
+      <div>
+        <div class="logo">
+          <span class="db"><img src="../../assets/images/car.jpg"  alt="logo"></span>
+          <h5 class="font-medium m-b-20">Sign Up to Travel Management System</h5>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <form class="form-horizontal m-t-20" [formGroup]="registrationForm" (ngSubmit)="registerUser()" novalidate>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ti-user"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Username" autocomplete="off"
+                  formControlName="username"
+                  [class.is-invalid]="RegistrationFormControls['username'].touched && RegistrationFormControls['username'].invalid">
+
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['username'].touched && RegistrationFormControls['username'].errors?.required">
+                  Username is required</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['username'].touched && RegistrationFormControls['username'].errors?.minlength">
+                  Username should be minimum of
+                  {{RegistrationFormControls['username'].errors?.minlength.requiredLength}}
+                  characters</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['username'].touched && RegistrationFormControls['username'].errors?.maxlength">
+                  Username should be maximum of
+                  {{RegistrationFormControls['username'].errors?.maxlength.requiredLength}}
+                  characters</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ti-text"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="First Name" autocomplete="off"
+                  formControlName="firstName"
+                  [class.is-invalid]="RegistrationFormControls['firstName'].touched && RegistrationFormControls['firstName'].invalid">
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['firstName'].touched && RegistrationFormControls['firstName'].errors?.required">
+                  First Name is required</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['firstName'].touched && RegistrationFormControls['firstName'].errors?.minlength">
+                  First Name should be minimum of
+                  {{RegistrationFormControls['firstName'].errors?.minlength.requiredLength}}
+                  characters</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['firstName'].touched && RegistrationFormControls['firstName'].errors?.maxlength">
+                  First Name should be maximum of
+                  {{RegistrationFormControls['firstName'].errors?.maxlength.requiredLength}}
+                  characters</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ti-text"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Last Name" autocomplete="off"
+                  formControlName="lastName"
+                  [class.is-invalid]="RegistrationFormControls['lastName'].touched && RegistrationFormControls['lastName'].invalid">
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['lastName'].touched && RegistrationFormControls['lastName'].errors?.required">
+                  Last Name is required</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['lastName'].touched && RegistrationFormControls['lastName'].errors?.minlength">
+                  Last Name should be minimum of
+                  {{RegistrationFormControls['lastName'].errors?.minlength.requiredLength}}
+                  characters</div>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['lastName'].touched && RegistrationFormControls['lastName'].errors?.maxlength">
+                  Last Name should be maximum of
+                  {{RegistrationFormControls['lastName'].errors?.maxlength.requiredLength}}
+                  characters</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="email"><i class="ti-email"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Email" autocomplete="off"
+                  formControlName="email"
+                  [class.is-invalid]="RegistrationFormControls['email'].touched && RegistrationFormControls['email'].invalid">
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['email'].touched && RegistrationFormControls['email'].errors?.required">
+                  Email is required</div>
+                <div class="invalid-feedback" *ngIf="RegistrationFormControls['email'].errors?.email">Please enter a
+                  valid email</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="password"><i class="ti-lock"></i></span>
+                </div>
+                <input type="password" class="form-control form-control-lg" placeholder="Password" autocomplete="off"
+                  formControlName="password"
+                  [class.is-invalid]="RegistrationFormControls['password'].touched && RegistrationFormControls['password'].invalid">
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['password'].touched && RegistrationFormControls['password'].errors?.required">
+                  Password is required</div>
+                <div class="invalid-feedback"
+                  *ngIf="!RegistrationFormControls['password'].errors?.required && RegistrationFormControls['password'].errors?.passwordComplexityFailed">
+                  Password must be at least 8 characters long with 1 upper case letter, 1 lower case letter, 1 number
+                  and 1 special character.</div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="confirmPassword"><i class="ti-lock"></i></span>
+                </div>
+                <input type="password" class="form-control form-control-lg" placeholder="Confirm Password"
+                  autocomplete="off" formControlName="confirmPassword"
+                  [class.is-invalid]="(RegistrationFormControls['confirmPassword'].touched && RegistrationFormControls['confirmPassword'].invalid) || (registrationForm.errors?.confirmPasswordInvalid)">
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['confirmPassword'].touched && RegistrationFormControls['confirmPassword'].errors?.required">
+                  Confirm Password is required</div>
+                <div class="invalid-feedback" *ngIf="!RegistrationFormControls['confirmPassword'].errors?.required && registrationForm.errors?.confirmPasswordInvalid">
+                  Password and Confirm Password should match</div>
+              </div>
+              <div class="input-group mb-3">
+                <label for="ddUserType" class="col-2 col-form-label">I am</label>
+                <select class="custom-select col-12" id="ddUserType" formControlName="roleId"
+                  [class.is-invalid]="RegistrationFormControls['roleId'].touched && RegistrationFormControls['roleId'].invalid">
+                  <option [ngValue]="null">select</option>
+                  <option value="3">a Customer</option>
+                  <option value="2">a Driver</option>
+                </select>
+                <div class="invalid-feedback"
+                  *ngIf="RegistrationFormControls['roleId'].touched && RegistrationFormControls['roleId'].invalid">
+                  Please select the User Type</div>
+              </div>
+              <div class="form-group text-center ">
+                <div class="col-xs-12 p-b-20 ">
+                  <button class="btn btn-block btn-lg btn-info" type="submit" [disabled]="registrationForm.invalid">SIGN
+                    UP</button>
+                </div>
+              </div>
+              <div class="form-group m-b-0 m-t-10 ">
+                <div class="col-sm-12 text-center ">
+                  Already have an account? <a href="javascript:void(0)" class="text-info m-l-5"
+                    (click)="isRegistration = !isRegistration"><b>Sign
+                      In</b></a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Registration Form -->
+  </div>
+</div>

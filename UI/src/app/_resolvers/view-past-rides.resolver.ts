@@ -20,7 +20,8 @@ export class ViewPastRidesResolver implements Resolve<BookingDetailModel[]> {
     ) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<BookingDetailModel[]> {
-        return this.customerService.viewPastRides()
+        var name = sessionStorage.getItem('name');
+        return this.customerService.viewPastRides(name)
             .pipe(catchError((error: Response) => {
                 if (error instanceof BadRequestError) {
                     this.alertify.error(error.originalError);

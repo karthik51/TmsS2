@@ -19,20 +19,8 @@ export class VehicleCategoryResolver implements Resolve<IVehicleCategoryModel[]>
         private alertify: AlertifyService
     ) { }
 
-    resolve(route: ActivatedRouteSnapshot): Observable<IVehicleCategoryModel[]> {
-        return this.employeeService.getVehicleCategories()
-            .pipe(catchError((error: Response) => {
-                if (error instanceof BadRequestError) {
-                    this.alertify.error(error.originalError);
-                    this.router.navigate([ROUTE_PATH.ERROR, error.status]);
-                } else if (error instanceof UnauthorizedError) {
-                    this.router.navigate([ROUTE_PATH.ERROR, error.status]);
-                } else {
-                    this.router.navigate([ROUTE_PATH.ERROR, '500']);
-                }
-
-                return of(null);
-            }));
+    resolve(route: ActivatedRouteSnapshot): IVehicleCategoryModel[] {
+        return this.employeeService.getVehicleCategories();          
     }
 
 }

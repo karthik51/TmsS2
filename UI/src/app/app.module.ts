@@ -25,8 +25,6 @@ import { NavComponent } from './_shared/components/nav/nav.component';
 import { NavigationComponent } from './_shared/components/header-navigation/navigation.component';
 import { SidebarComponent } from './_shared/components/sidebar/sidebar.component';
 import { HomeComponent } from './_components/home/home.component';
-import { RegisterVehicleComponent } from './_components/employee/register-vehicle/register-vehicle.component';
-import { ConfirmRideComponent } from './_components/employee/confirm-ride/confirm-ride.component';
 import { ViewSummaryComponent } from './_components/employee/view-summary/view-summary.component';
 import { BookARideComponent } from './_components/customer/book-a-ride/book-a-ride.component';
 import { ViewPastRidesComponent } from './_components/customer/view-past-rides/view-past-rides.component';
@@ -43,8 +41,6 @@ import { ViewAllBookingsComponent } from './_components/admin/view-all-bookings/
     NavigationComponent,
     SidebarComponent,
     HomeComponent,
-    RegisterVehicleComponent,
-    ConfirmRideComponent,
     ViewSummaryComponent,
     BookARideComponent,
     ViewPastRidesComponent,

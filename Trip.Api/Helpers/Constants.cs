@@ -10,7 +10,7 @@ namespace Trip.Api.Helpers
         public class RoleNames
         {
             public const string ADMIN = "Admin";
-            public const string EMPLOYEE = "Employee";
+            public const string EMPLOYEE = "Driver";
             public const string CUSTOMER = "Customer";
         }
     }

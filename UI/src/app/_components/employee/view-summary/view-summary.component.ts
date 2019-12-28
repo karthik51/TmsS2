@@ -37,10 +37,10 @@ export class ViewSummaryComponent implements OnInit {
     });
   }
 
-  completeRide(bookingDetailsId: number) {
+  completeRide(bookingDetailsId: string) {
     this.employeeService.completeRide(bookingDetailsId)
       .subscribe(isRideCompleted => {
-        const bookingDetails = this.bookingDetails.find(bd => bd.bookingDetailsId == bookingDetailsId);
+        const bookingDetails = this.bookingDetails.find(bd => bd.id == bookingDetailsId);
         if (bookingDetails) {
           bookingDetails.isRideCompleted = isRideCompleted;
 

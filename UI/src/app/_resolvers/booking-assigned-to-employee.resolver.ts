@@ -20,7 +20,8 @@ export class BookingAssignedToEmployeeResolver implements Resolve<BookingDetailM
     ) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<BookingDetailModel[]> {
-        return this.employeeService.getBookingsAssignedToEmployee()
+        var name = sessionStorage.getItem('name');
+        return this.employeeService.getBookingsAssignedToEmployee(name)
             .pipe(catchError((error: Response) => {
                 if (error instanceof BadRequestError) {
                     this.alertify.error(error.originalError);

@@ -15,32 +15,33 @@ import { IUserInfoModel } from '../_models/user-info.model';
 export class AuthService {
     jwtHelper = new JwtHelperService();
     loggedInUserName: string;
-    accountApiUrl: string = environment.baseApiUrl ;
+    accountApiUrl: string = environment.baseApiUrl + '/users';
 
     constructor(private http: HttpClient, private router: Router) { }
 
     login(authRequest: any): Observable<any> {
-        return this.http.post(this.accountApiUrl + '/login', authRequest);
-      /*  .pipe(
+        return this.http.post(this.accountApiUrl + '/login', authRequest).pipe(
             map((response: any) => {
                 const user = response;
 
                 if (user) {
-                    sessionStorage.setItem('token', user.token);
-                    this.assignLoggedInUserName();
+                    sessionStorage.setItem('token', user.Token);
+                    sessionStorage.setItem('name', user.UserName);
+                    this.assignLoggedInUserName(user);
                 }
             })
-        );*/
+        );
     }
-        loggedIn() {
+
+    loggedIn() {
         const token = sessionStorage.getItem('token');
         return !this.jwtHelper.isTokenExpired(token);
     }
 
-    assignLoggedInUserName(): void {
+    assignLoggedInUserName(user: any): void {
         const token = sessionStorage.getItem('token');
         if (token) {
-            this.loggedInUserName = this.jwtHelper.decodeToken(token).unique_name;
+            this.loggedInUserName = user.UserName;                    
         }
     }
 
@@ -62,7 +63,7 @@ export class AuthService {
     }
 
     get loggedInUserId(): number {
-        return +this.parseValueFromToken('nameid');
+        return +this.parseValueFromToken('unique_name');
     }
 
     get isAdminRole(): boolean {
@@ -97,6 +98,7 @@ export class AuthService {
 
         if (token) {
             sessionStorage.removeItem('token');
+            sessionStorage.removeItem('name');
             return true;
         }
 
@@ -108,6 +110,7 @@ export class AuthService {
     }
 
     registerUser(registerUser: IRegisterUserModel): Observable<IUserInfoModel> {
-        return this.http.post<IUserInfoModel>(this.accountApiUrl, registerUser);
+        console.log(this.accountApiUrl);
+        return this.http.post<IUserInfoModel>(this.accountApiUrl+'/createuser', registerUser);
     }
 }

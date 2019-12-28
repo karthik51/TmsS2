@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, CustomValidators.passwordValidator]],
       confirmPassword: [null, Validators.required],
-      roleId: [null, Validators.required]
+      role: [null, Validators.required]
     }, { validator: CustomValidators.confirmPasswordValidator });
   }
 
@@ -60,16 +60,14 @@ export class LoginComponent implements OnInit {
           this.alertify.error("Incorrect Username or Password!");
         }
       }, () => {
-        
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-               
+        //console.log(returnUrl);
         if (returnUrl) {
           returnUrl = returnUrl === ROUTE_PATH.LOGIN ? ROUTE_PATH.HOME : returnUrl;
         }
-    
+
         this.router.navigate(['/customer/book-a-ride']);
       });
-     
   }
 
   get UserRoute(): string {
@@ -78,7 +76,7 @@ export class LoginComponent implements OnInit {
     if (this.authService.isCustomerRole) {
       userRoute = ROUTE_PATH.CUSTOMER.MAIN + '/' + ROUTE_PATH.CUSTOMER.BOOK_A_RIDE;
     } else if (this.authService.isEmployeeRole) {
-      userRoute = ROUTE_PATH.EMPLOYEE.MAIN + '/' + ROUTE_PATH.EMPLOYEE.REGISTER_VEHICLE;
+      userRoute = ROUTE_PATH.EMPLOYEE.MAIN + '/' + ROUTE_PATH.EMPLOYEE.VIEW_SUMMARY;
     } else {
       userRoute = ROUTE_PATH.HOME;
     }

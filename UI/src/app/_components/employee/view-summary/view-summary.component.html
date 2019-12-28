@@ -23,12 +23,12 @@
         <tr *ngFor="let bookingDetail of bookingDetails">
           <td><img [alt]="bookingDetail.vehicleImage" class="rounded-circle"
               src="assets/images/vehicles/{{bookingDetail.vehicleImage}}" width="40"></td>
-          <td>{{ bookingDetail.bookingDate | date:'medium' }}</td>
+          <td>{{ bookingDetail.rideDate | date:'medium' }}</td>
           <td>{{ bookingDetail.fromLocation | uppercase }}</td>
           <td>{{ bookingDetail.toLocation | uppercase }}</td>
-          <td>{{ bookingDetail.bookedByUser }}</td>
-          <td>{{ bookingDetail.isBookingCancelled ? 'Cancelled' :  bookingDetail.isRideCompleted ? 'Completed': 'Ongoing' }}</td>
-          <td><button class="btn btn-success" *ngIf="!bookingDetail.isBookingCancelled && !bookingDetail.isRideCompleted" (click)="completeRide(+bookingDetail.bookingDetailsId)">Complete</button></td>
+          <td>{{ bookingDetail.rideByUser }}</td>
+          <td>{{ bookingDetail.isRideCancelled ? 'Cancelled' :  bookingDetail.isRideCompleted ? 'Completed': 'Ongoing' }}</td>
+          <td><button class="btn btn-success" *ngIf="!bookingDetail.isRideCancelled && !bookingDetail.isRideCompleted" (click)="completeRide(+bookingDetail.id)">Complete</button></td>
         </tr>
       </tbody>
     </table>

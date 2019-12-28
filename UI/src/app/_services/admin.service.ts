@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BookingDetailModel } from '../_models/booking-details.model';
@@ -8,12 +8,18 @@ import { BookingDetailModel } from '../_models/booking-details.model';
     providedIn: 'root'
 })
 export class AdminService {
-    private bookingRoute: string = environment.baseApiUrl + '/booking';
+    private bookingRoute: string = environment.baseApiUrl + '/trips/GetAllTrips';
 
     constructor(private http: HttpClient) {
     }
 
     getAllBookings(): Observable<BookingDetailModel[]> {
-        return this.http.get<BookingDetailModel[]>(this.bookingRoute);
+        const token = sessionStorage.getItem('token');       
+        var headers_object = new HttpHeaders().set("Authorization", "Bearer " + token);
+        const httpOptions = { 'headers': headers_object};
+      
+        var response = this.http.get<BookingDetailModel[]>(this.bookingRoute, httpOptions);
+        console.log('service admin');
+        return response;
     }
 }

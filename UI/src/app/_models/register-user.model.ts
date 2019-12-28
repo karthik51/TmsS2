@@ -1,9 +1,9 @@
 export interface IRegisterUserModel {
-    username: string;
+    Username: string;
     password: string;
     firstName: string;
     lastName: string;
     confirmPassword: string;
     email: string;
-    roleId: string;
+    role: string;
 }

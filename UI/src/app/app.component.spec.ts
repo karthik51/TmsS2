@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'OTMS-SPA'`, () => {
+  it(`should have as title 'UI'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('OTMS-SPA');
+    expect(app.title).toEqual('UI');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to OTMS-SPA!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to UI!');
   });
 });

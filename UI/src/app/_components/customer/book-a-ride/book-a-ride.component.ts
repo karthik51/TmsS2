@@ -64,7 +64,7 @@ export class BookARideComponent implements OnInit {
     }
   }
 
-  cancelRide(bookingId: number): void {
+  cancelRide(bookingId: string): void {
     this.alertify.confirm('Are you sure you want to cancel this ride?', () => {
       this.customerService.cancelRide(bookingId)
         .subscribe(response => {

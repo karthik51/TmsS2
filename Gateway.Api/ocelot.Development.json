@@ -24,7 +24,23 @@
         }
       ],
       "UpstreamPathTemplate": "/api/users/getusers",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "auth",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 10
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 1000,
+        "TimeoutValue": 5000
+      }
     },
     {
       "UseServiceDiscovery": true,
@@ -56,11 +72,7 @@
         {
           "Host": "localhost",
           "Port": 5002
-        },
-        {
-          "Host": "localhost",
-          "Port": 6002
-        }
+        }       
       ],
       "UpstreamPathTemplate": "/api/trips/GetAllTrips",
       "UpstreamHttpMethod": [ "Get" ],
@@ -73,7 +85,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 100
       },
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
