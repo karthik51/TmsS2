@@ -20,22 +20,23 @@ export class ViewAllBookingsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private adminService: AdminService,
   ) { }
- 
+   
   ngOnInit() {
-    //this.http.subscribe(resolve => {
-     // this.bookingDetails = resolve.bookingDetails;    
-    //});
+    this.adminService.getAllBookings().subscribe(resolve => {
 
-    this.adminService.getAllBookings().subscribe((result : BookingDetailModel[])=>{
-      this.bookingDetails = result;
-  });
-
-    setTimeout(() => {
-     // this.dtTrigger.next();
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 10
+      };
+      
+      this.bookingDetails = resolve;
+      setTimeout(() => {
+        this.dtTrigger.next();
+      });
     });
   }
 
   ngOnDestroy(): void {
-   // this.dtTrigger.unsubscribe();
+    this.dtTrigger.unsubscribe();
   }
 }

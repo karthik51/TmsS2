@@ -23,14 +23,13 @@
 
 body { 
   
-  background:darkolivegreen;
+  background:darkslategrey;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 
-tmscolor { 
-  
-  background:darkolivegreen;
+button{
+  background:darkslategrey;
 }

@@ -64,6 +64,35 @@
       //  "TimeoutValue": 5000
       //}
     },
+    //{
+    //  "UseServiceDiscovery": true,
+    //  "DownstreamPathTemplate": "/api/v1/trips/GetAllTrips",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 5002
+    //    }       
+    //  ],
+    //  "UpstreamPathTemplate": "/api/trips/GetAllTrips",
+    //  "UpstreamHttpMethod": [ "Get" ],
+    //  "ServiceName": "trip",
+    //  "LoadBalancerOptions": {
+    //    "Type": "RoundRobin"
+    //  },
+    //  "RateLimitOptions": {
+    //    "ClientWhitelist": [],
+    //    "EnableRateLimiting": true,
+    //    "Period": "1s",
+    //    "PeriodTimespan": 1,
+    //    "Limit": 100
+    //  },
+    //  "QoSOptions": {
+    //    "ExceptionsAllowedBeforeBreaking": 3,
+    //    "DurationOfBreak": 1000,
+    //    "TimeoutValue": 5000
+    //  }
+    //},
     {
       "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/v1/trips/GetAllTrips",
@@ -72,26 +101,10 @@
         {
           "Host": "localhost",
           "Port": 5002
-        }       
+        }
       ],
       "UpstreamPathTemplate": "/api/trips/GetAllTrips",
-      "UpstreamHttpMethod": [ "Get" ],
-      "ServiceName": "trip",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 100
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 1000,
-        "TimeoutValue": 5000
-      }
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "UseServiceDiscovery": true,

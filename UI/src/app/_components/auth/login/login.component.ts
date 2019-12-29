@@ -64,9 +64,7 @@ export class LoginComponent implements OnInit {
         //console.log(returnUrl);
         if (returnUrl) {
           returnUrl = returnUrl === ROUTE_PATH.LOGIN ? ROUTE_PATH.HOME : returnUrl;
-        }
-
-        this.router.navigate(['/customer/book-a-ride']);
+        }      
       });
   }
 
