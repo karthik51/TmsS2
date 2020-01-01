@@ -7,7 +7,15 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-16.04'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Free Trial(c0c09868-f63c-4914-a4dd-e5fddf8fc0ae)'
+    appType: 'webAppLinux'
+    WebAppName: 'tmsapp'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'DOTNETCORE|2.2'
 
 variables:
   solution: '**/*.sln'
