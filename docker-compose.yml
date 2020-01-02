@@ -11,6 +11,11 @@ services:
     build:
       context: .
       dockerfile: Gateway.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Container
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - "5000:5000"
     links:
       - auth:auth
       - trip:trip
@@ -23,6 +28,11 @@ services:
     build:
       context: .
       dockerfile: Auth.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Container
+      - ASPNETCORE_URLS=http://+:5001
+    ports:
+      - "5001:5001"
     links:
       - db:db
       - consul:consul
@@ -38,6 +48,11 @@ services:
     build:
       context: .
       dockerfile: Trip.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Container
+      - ASPNETCORE_URLS=http://+:5002
+    ports:
+      - "5002:5002"
     links:
       - db:db
       - consul:consul
@@ -53,6 +68,8 @@ services:
     build:
       context: .
       dockerfile: UI/Dockerfile
+    ports:
+      - "8080:80"
     links:
       - gateway:gateway
     networks:
@@ -64,22 +81,14 @@ services:
     ports:
       - 27017:27017
     networks:
-      - tmsnetwork
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    depends_on:
-      - db
-    networks:
-      - tmsnetwork
+      - tmsnetwork  
 
   consul:
     image: consul:latest
     command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
     hostname: consul
     container_name: consul
+    ports:
+      - "8500:8500"
     networks:
       - tmsnetwork
