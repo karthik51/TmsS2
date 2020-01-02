@@ -28,7 +28,7 @@
           <td>{{ bookingDetail.toLocation | uppercase }}</td>
           <td>{{ bookingDetail.rideByUser }}</td>
           <td>{{ bookingDetail.isRideCancelled ? 'Cancelled' :  bookingDetail.isRideCompleted ? 'Completed': 'Ongoing' }}</td>
-          <td><button class="btn btn-success" *ngIf="!bookingDetail.isRideCancelled && !bookingDetail.isRideCompleted" (click)="completeRide(+bookingDetail.id)">Complete</button></td>
+          <td><button class="btn btn-success" *ngIf="!bookingDetail.isRideCancelled && !bookingDetail.isRideCompleted" (click)="completeRide(bookingDetail.id)">Complete</button></td>
         </tr>
       </tbody>
     </table>

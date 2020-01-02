@@ -24,23 +24,23 @@
         }
       ],
       "UpstreamPathTemplate": "/api/users/getusers",
-      "UpstreamHttpMethod": [ "Get" ],
-      "ServiceName": "auth",
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 10
-      },
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 1000,
-        "TimeoutValue": 5000
-      }
+      "UpstreamHttpMethod": [ "Get" ]
+      //"ServiceName": "auth",
+      //"LoadBalancerOptions": {
+      //  "Type": "RoundRobin"
+      //},
+      //"RateLimitOptions": {
+      //  "ClientWhitelist": [],
+      //  "EnableRateLimiting": true,
+      //  "Period": "1s",
+      //  "PeriodTimespan": 1,
+      //  "Limit": 10
+      //},
+      //"QoSOptions": {
+      //  "ExceptionsAllowedBeforeBreaking": 3,
+      //  "DurationOfBreak": 1000,
+      //  "TimeoutValue": 5000
+      //}
     },
     {
       "UseServiceDiscovery": true,
