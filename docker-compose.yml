@@ -6,7 +6,7 @@ networks:
 
 services:
   gateway:
-    image: tms-gatewayapi
+    image: karthikeyan51/tms-gatewayapi
     container_name: tms.gatewayapi
     build:
       context: .
@@ -23,7 +23,7 @@ services:
       - tmsnetwork
     
   auth:
-    image: tms-authapi
+    image: karthikeyan51/tms-authapi
     container_name: tms.authapi
     build:
       context: .
@@ -43,7 +43,7 @@ services:
       - tmsnetwork
 
   trip:
-    image: tms-tripapi
+    image: karthikeyan51/tms-tripapi
     container_name: tms.tripapi
     build:
       context: .
@@ -63,7 +63,7 @@ services:
       - tmsnetwork
       
   ui:
-    image: tms-ui
+    image: karthikeyan51/tms-ui
     container_name: tms.ui
     build:
       context: .
